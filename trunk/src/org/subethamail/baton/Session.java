@@ -65,6 +65,9 @@ class Session implements MessageHandler
 	public void recipient(String to) throws RejectException
 	{
 		Matcher match = this.getMatch(this.from, to);
+		if (match == null)
+			throw new RejectException(554, "No appropriate target server");
+			
 		try
 		{
 			SmartClient target = this.getTarget(match);
