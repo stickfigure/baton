@@ -31,7 +31,7 @@
 		<pathelement path="${build.classes.dir}" />
 		<pathelement path="${javasrc.dir}" />
 	</path>
-
+	
  	<target name="classes">
 		<mkdir dir="${build.classes.dir}" />
  		
@@ -56,21 +56,11 @@
 	</target>
 	
 	<target name="test" depends="jar">
-		<taskdef name="jtiger" classname="org.jtiger.ant.JTigerTask" classpathref="master.classpath"/>
-		<jtiger>
-			<!-- <category regex="manager"/> -->
-			<fixtures>
-				<fileset dir="${javasrc.dir}">
-					<include name="**/test/**/*.java"/>
-				</fileset>
-			</fixtures>
-			<result name="~html">
-				<param value="${build.dir}"/>
-			</result>
-			<java failonerror="true">
-				<classpath refid="run.classpath"/>
-			</java>
-		</jtiger>
+		<taskdef name="testng" classpathref="run.classpath" classname="org.testng.TestNGAntTask" />
+		
+		<testng classpathref="run.classpath" outputdir="${build.dir}">
+			<classfileset dir="${build.classes.dir}" includes="**/test/*.class"/>
+		</testng>
 	</target>
 </project>
 

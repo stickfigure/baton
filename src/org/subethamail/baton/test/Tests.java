@@ -5,15 +5,9 @@
 
 package org.subethamail.baton.test;
 
-import static org.jtiger.assertion.Basic.assertEqual;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jtiger.framework.Fixture;
-import org.jtiger.framework.SetUp;
-import org.jtiger.framework.TearDown;
-import org.jtiger.framework.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.subethamail.baton.Baton;
@@ -21,11 +15,13 @@ import org.subethamail.baton.CaseMatcher;
 import org.subethamail.baton.Matcher;
 import org.subethamail.baton.util.SmartClient;
 import org.subethamail.wiser.Wiser;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 /**
  * @author Jeff Schnitzer
  */
-@Fixture("Basic Tests")
 public class Tests
 {
 	/** */
@@ -51,7 +47,7 @@ public class Tests
 	Wiser wiser2;
 	
 	/** */
-	@SetUp
+	@BeforeMethod
 	public void setUp()
 	{
 		this.wiser1 = new Wiser(WISER_1_PORT);
@@ -61,6 +57,17 @@ public class Tests
 		this.wiser2.start();
 	}
 	
+	/** */
+	@AfterMethod
+	public void tearDown()
+	{
+		this.wiser1.stop();
+		this.wiser1 = null;
+		
+		this.wiser2.stop();
+		this.wiser2 = null;
+	}
+
 	/** */
 	@Test
 	public void testBasic() throws Exception
@@ -84,18 +91,7 @@ public class Tests
 		
 		bat.stop();
 		
-		assertEqual(1, this.wiser1.getMessages().size());
-		assertEqual(1, this.wiser2.getMessages().size());
-	}
-	
-	/** */
-	@TearDown
-	public void tearDown()
-	{
-		this.wiser1.stop();
-		this.wiser1 = null;
-		
-		this.wiser2.stop();
-		this.wiser2 = null;
+		assert 1 == this.wiser1.getMessages().size();
+		assert 1 == this.wiser2.getMessages().size();
 	}
 }
