@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+
+<baton port="2500">
+	<case to="citypunk.*@infohazard.org" target="localhost:2500"/>
+	<default route="localhost:2499"/>
+</baton>
