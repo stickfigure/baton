@@ -53,7 +53,7 @@ public class TwoServersErrorTests
 		wiser2.start();
 		
 		List<Matcher> matchers = new ArrayList<Matcher>();
-		matchers.add(new CaseMatcher(WISER_2_HOSTPORT, null, "bob.*@example.com"));
+		matchers.add(new CaseMatcher(WISER_1_HOSTPORT, null, "^bob.*@example.com$"));
 		matchers.add(new Matcher(WISER_2_HOSTPORT));
 		
 		Baton bat = new Baton(matchers, BATON_PORT, null);

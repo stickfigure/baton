@@ -173,4 +173,10 @@ public class SMTPClient
 			}
 		}
 	}
+	
+	/** */
+	public String toString()
+	{
+		return this.getClass().getSimpleName() + " { " + this.hostPort + "}";
+	}
 }
