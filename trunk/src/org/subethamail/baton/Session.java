@@ -74,7 +74,9 @@ class Session implements MessageHandler
 			
 			try
 			{
-				target.from(this.from);
+				if (!target.sentFrom())
+					target.from(this.from);
+				
 				target.to(to);
 			}
 			catch (SMTPException ex)

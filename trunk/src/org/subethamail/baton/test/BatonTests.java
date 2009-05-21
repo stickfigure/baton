@@ -94,7 +94,7 @@ public class BatonTests
 	
 	/** */
 	@Test
-	public void testBasic() throws Exception
+	public void twoServersSplitRecipients() throws Exception
 	{
 		List<Matcher> matchers = new ArrayList<Matcher>();
 		matchers.add(new CaseMatcher(WISER_1_HOSTPORT, null, "one.*@example\\.com"));

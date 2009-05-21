@@ -20,6 +20,10 @@ public class SmartClient extends SMTPClient
 	/** */
     private final static byte[] SMTP_TERMINATOR = { '\r', '\n', '.', '\r', '\n' };
 
+	/** */
+    boolean sentFrom;
+    boolean sentTo;
+	
 	/**
 	 * @throws UnknownHostException if problem looking up hostname
 	 * @throws SMTPException if problem reported by the server 
@@ -37,12 +41,14 @@ public class SmartClient extends SMTPClient
 	public void from(String from) throws IOException, SMTPException
 	{
 		this.sendAndCheck("MAIL FROM: <" + from + ">");
+		this.sentFrom = true;
 	}
 
 	/** */
 	public void to(String to) throws IOException, SMTPException
 	{
 		this.sendAndCheck("RCPT TO: <" + to + ">");
+		this.sentTo = true;
 	}
 	
 	/**
@@ -88,5 +94,21 @@ public class SmartClient extends SMTPClient
 		}
 		
 		this.close();
+	}
+	
+	/**
+	 * @return true if we have already specified from()
+	 */
+	public boolean sentFrom()
+	{
+		return this.sentFrom;
+	}
+	
+	/**
+	 * @return true if we have already specified to()
+	 */
+	public boolean sentTo()
+	{
+		return this.sentTo;
 	}
 }
