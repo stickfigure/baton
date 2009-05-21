@@ -14,6 +14,9 @@ import org.subethamail.smtp.TooMuchDataException;
 import org.subethamail.wiser.Wiser;
 
 /**
+ * Extends Wiser to allow us to reject recipients and simulate rejection
+ * of the data stream.
+ * 
  * @author Jeff Schnitzer
  */
 public class EvenWiser extends Wiser
