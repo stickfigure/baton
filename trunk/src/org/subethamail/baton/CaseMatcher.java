@@ -37,13 +37,16 @@ public class CaseMatcher extends Matcher
 	{
 		super(matchNode);
 		
-		this.matchFrom = matchNode.getAttribute(ATTR_FROM);
-		if (this.matchFrom != null && this.matchFrom.trim().length() == 0)
-			this.matchFrom = null;
+		String from = matchNode.getAttribute(ATTR_FROM);
+		if (from != null && from.trim().length() == 0)
+			from = null;
 		
-		this.matchTo = matchNode.getAttribute(ATTR_TO);
-		if (this.matchTo != null && this.matchTo.trim().length() == 0)
-			this.matchTo = null;
+		String to = matchNode.getAttribute(ATTR_TO);
+		if (to != null && to.trim().length() == 0)
+			to = null;
+		
+		this.setMatchFrom(from);
+		this.setMatchTo(to);
 	}
 	
 	/** One or both of "from" or "to" must be non-null.  If both, condition is AND. */
@@ -51,8 +54,20 @@ public class CaseMatcher extends Matcher
 	{
 		super(hostAndPort);
 		
-		this.matchFrom = from;
-		this.matchTo = to;
+		this.setMatchFrom(from);
+		this.setMatchTo(to);
+	}
+	
+	/** Add implicit begin/end to the regex */
+	protected void setMatchFrom(String value)
+	{
+		this.matchFrom = "^" + value + "$";
+	}
+	
+	/** Add implicit begin/end to the regex */
+	protected void setMatchTo(String value)
+	{
+		this.matchTo = "^" + value + "$";
 	}
 	
 	/** Checks against the "from" and "to" regexes */
