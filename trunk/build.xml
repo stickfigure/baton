@@ -3,16 +3,16 @@
 <project name="baton" default="jar" basedir=".">
 
 	<property name="name" value="${ant.project.name}" />
-	
+
 	<property file="build.properties" />
 
 	<property name="build.dir" location="target" />
-	
+
 	<property name="build.debug" value="on" />
 	<property name="build.deprecation" value="on" />
 
 	<property name="build.classes.dir" location="${build.dir}/classes" />
-	
+
 	<property name="build.jar.file" location="${build.dir}/${name}.jar" />
 
 	<property name="javasrc.dir" location="src" />
@@ -20,21 +20,21 @@
 
 	<path id="master.classpath">
 		<pathelement path="${java.class.path}" />
-		
+
 		<fileset dir="${lib.dir}">
 			<include name="**/*.jar" />
 		</fileset>
 	</path>
-	
+
 	<path id="run.classpath">
 		<path refid="master.classpath" />
 		<pathelement path="${build.classes.dir}" />
 		<pathelement path="${javasrc.dir}" />
 	</path>
-	
- 	<target name="classes">
+
+	<target name="classes">
 		<mkdir dir="${build.classes.dir}" />
- 		
+
 		<javac srcdir="${javasrc.dir}"
 				destdir="${build.classes.dir}"
 				debug="${build.debug}"
@@ -51,13 +51,30 @@
 		</jar>
 	</target>
 
+	<target name="assembly" depends="jar">
+		<property name="ikvm.dir" value="/dotnet/ikvm-0.38.0.2" />
+
+		<taskdef name="ikvmc" classname="net.ikvm.ant.IkvmcTask" />
+
+		<ikvmc target="library" out="${build.dir}/${name}.dll" home="${ikvm.dir}" debug="true">
+			<fileset dir="${build.dir}">
+				<include name="${name}.jar" />
+			</fileset>
+
+			<fileset dir="${lib.dir}">
+				<include name="**/*.jar" />
+				<exclude name="**/activation.jar" />
+			</fileset>
+		</ikvmc>
+	</target>
+
 	<target name="clean">
 		<delete dir="${build.dir}" />
 	</target>
-	
+
 	<target name="test" depends="jar">
 		<taskdef name="testng" classpathref="run.classpath" classname="org.testng.TestNGAntTask" />
-		
+
 		<testng classpathref="run.classpath" outputdir="${build.dir}">
 			<classfileset dir="${build.classes.dir}" includes="**/test/*.class"/>
 		</testng>
