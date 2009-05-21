@@ -29,6 +29,7 @@ public class SmartClient extends SMTPClient
 	{
 		super(host, port);
 		
+		this.receiveAndCheck();	// The server announces itself first
 		this.sendAndCheck("HELO " + myHost);
 	}
 	
@@ -65,8 +66,9 @@ public class SmartClient extends SMTPClient
 	 */
 	public void dataEnd() throws IOException, SMTPException
 	{
-		this.dataOutput.write(SMTP_TERMINATOR);
 		this.dataOutput.flush();
+		this.rawOutput.write(SMTP_TERMINATOR);
+		this.rawOutput.flush();
 		
 		this.receiveAndCheck();
 	}

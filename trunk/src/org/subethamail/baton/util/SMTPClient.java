@@ -32,7 +32,8 @@ public class SMTPClient
 	/** */
 	BufferedReader reader;
 	
-	/** Output stream used for data, with dot stuffing */
+	/** Output streams used for data */
+	OutputStream rawOutput;
 	ExtraDotOutputStream dataOutput;
 	
 	/** Note we bypass this during DATA */
@@ -43,24 +44,24 @@ public class SMTPClient
 	 */
 	public static class Response
 	{
-		String code;
+		int code;
 		String message;
 		
-		public Response(String code, String text)
+		public Response(int code, String text)
 		{
 			this.code = code;
 			this.message = text;
 		}
 		
-		public String getCode() { return this.code; }
+		public int getCode() { return this.code; }
 		public String getMessage() { return this.message; }
-		
-		public int getCodeInt() { return Integer.parseInt(this.code); }
 		
 		public boolean isSuccess()
 		{
-			return this.code.charAt(0) == '2';
+			return this.code >= 100 && this.code < 400;
 		}
+		
+		public String toString() { return this.code + " " + this.message; }
 	}
 
 	/**
@@ -77,9 +78,9 @@ public class SMTPClient
 		this.socket = new Socket(host, port);
 		this.reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		
-		OutputStream output = socket.getOutputStream();
-		this.dataOutput = new ExtraDotOutputStream(output);
-		this.writer = new PrintWriter(output, true);
+		this.rawOutput = this.socket.getOutputStream();
+		this.dataOutput = new ExtraDotOutputStream(this.rawOutput);
+		this.writer = new PrintWriter(this.rawOutput, true);
 	}
 	
 	/**
@@ -126,7 +127,7 @@ public class SMTPClient
 		
 		String code = line.substring(0, 3);
 		
-		return new Response(code, builder.toString());
+		return new Response(Integer.parseInt(code), builder.toString());
 	}
 
     /**
