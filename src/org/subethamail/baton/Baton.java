@@ -54,7 +54,12 @@ public class Baton implements MessageHandlerFactory
 	{
 		this.server = new SMTPServer(this);
 	}
-	
+
+	/** */
+	public Baton(String file) throws IOException
+	{
+		this(new File(file));
+	}	
 	/** */
 	public Baton(File config) throws IOException
 	{
