@@ -46,11 +46,11 @@ public class TwoServersErrorTests
 	@Test
 	public void oneRejectsData() throws Exception
 	{
-		EvenWiser wiser1 = new EvenWiser(WISER_1_PORT, null, false);
-		wiser1.start();
+		EvenWiser normalWiser = new EvenWiser(WISER_1_PORT, null, false);
+		normalWiser.start();
 		
-		EvenWiser wiser2 = new EvenWiser(WISER_2_PORT, null, true);
-		wiser2.start();
+		EvenWiser brokenWiser = new EvenWiser(WISER_2_PORT, null, true);
+		brokenWiser.start();
 		
 		List<Matcher> matchers = new ArrayList<Matcher>();
 		matchers.add(new CaseMatcher(WISER_1_HOSTPORT, null, "^bob.*@example.com$"));
@@ -69,11 +69,15 @@ public class TwoServersErrorTests
 			client.dataWrite(MSG_BODY.getBytes(), MSG_BODY.length());
 			client.dataWrite(MSG_BODY.getBytes(), MSG_BODY.length());
 			client.dataEnd();
+			
+			assert normalWiser.getMessages().size() == 1;
+			assert brokenWiser.getMessages().size() == 0;
 		}
 		finally
 		{
 			bat.stop();
-			wiser1.stop();
+			normalWiser.stop();
+			brokenWiser.stop();
 		}
 	}
 }

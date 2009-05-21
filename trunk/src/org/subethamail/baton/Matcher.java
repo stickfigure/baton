@@ -60,4 +60,10 @@ public class Matcher
 	{
 		return this.host.toLowerCase() + ":" + this.port;
 	}
+	
+	/** */
+	public String toString()
+	{
+		return this.getClass().getSimpleName() + " {" + this.host + ":" + this.port + "}";
+	}
 }
