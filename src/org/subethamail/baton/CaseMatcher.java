@@ -61,13 +61,19 @@ public class CaseMatcher extends Matcher
 	/** Add implicit begin/end to the regex */
 	protected void setMatchFrom(String value)
 	{
-		this.matchFrom = "^" + value + "$";
+		if (value == null)
+			this.matchFrom = null;
+		else
+			this.matchFrom = "^" + value + "$";
 	}
 	
 	/** Add implicit begin/end to the regex */
 	protected void setMatchTo(String value)
 	{
-		this.matchTo = "^" + value + "$";
+		if (value == null)
+			this.matchTo = null;
+		else
+			this.matchTo = "^" + value + "$";
 	}
 	
 	/** Checks against the "from" and "to" regexes */
