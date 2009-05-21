@@ -22,11 +22,11 @@ import org.testng.annotations.Test;
 /**
  * @author Jeff Schnitzer
  */
-public class Tests
+public class BatonTests
 {
 	/** */
 	@SuppressWarnings("unused")
-	private static Logger log = LoggerFactory.getLogger(Tests.class);
+	private static Logger log = LoggerFactory.getLogger(BatonTests.class);
 	
 	/** */
 	public static final int BATON_PORT = 2200;
@@ -68,6 +68,30 @@ public class Tests
 		this.wiser2 = null;
 	}
 
+	/** */
+	@Test(groups={"easy"})
+	public void singleServerSingleRecipient() throws Exception
+	{
+		List<Matcher> matchers = new ArrayList<Matcher>();
+		matchers.add(new Matcher(WISER_1_HOSTPORT));
+		
+		Baton bat = new Baton(matchers, BATON_PORT, null);
+		bat.start();
+		
+		SmartClient client = new SmartClient("localhost", BATON_PORT, "localhost");
+		client.from("testing@somewhere.com");
+		client.to("one@example.com");
+		client.dataStart();
+		client.dataWrite(MSG_BODY.getBytes(), MSG_BODY.length());
+		client.dataWrite(MSG_BODY.getBytes(), MSG_BODY.length());
+		client.dataEnd();
+		client.quit();
+		
+		bat.stop();
+		
+		assert 1 == this.wiser1.getMessages().size();
+	}
+	
 	/** */
 	@Test
 	public void testBasic() throws Exception

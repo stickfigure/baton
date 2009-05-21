@@ -74,11 +74,12 @@ class Session implements MessageHandler
 			
 			try
 			{
+				target.from(this.from);
 				target.to(to);
 			}
 			catch (SMTPException ex)
 			{
-				throw new RejectException(ex.getResponse().getCodeInt(), ex.getResponse().getMessage());
+				throw new RejectException(ex.getResponse().getCode(), ex.getResponse().getMessage());
 			}
 		}
 		catch (IOException ex)

@@ -75,7 +75,7 @@
 	<target name="test" depends="jar">
 		<taskdef name="testng" classpathref="run.classpath" classname="org.testng.TestNGAntTask" />
 
-		<testng classpathref="run.classpath" outputdir="${build.dir}">
+		<testng classpathref="run.classpath" outputdir="${build.dir}/test-output">
 			<classfileset dir="${build.classes.dir}" includes="**/test/*.class"/>
 		</testng>
 	</target>

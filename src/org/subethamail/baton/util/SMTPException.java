@@ -11,7 +11,7 @@ public class SMTPException extends IOException
 
 	public SMTPException(Response resp)
 	{
-		super(resp.getMessage());
+		super(resp.toString());
 		
 		this.response = resp;
 	}

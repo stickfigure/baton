@@ -7,5 +7,6 @@
 	<classpathentry kind="lib" path="lib/buildonly/activation.jar"/>
 	<classpathentry kind="lib" path="lib/buildonly/mail.jar"/>
 	<classpathentry kind="lib" path="lib/buildonly/testng-5.9-jdk15.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-jdk14-1.5.6.jar"/>
 	<classpathentry kind="output" path="target/eclipse/"/>
 </classpath>
