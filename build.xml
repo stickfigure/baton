@@ -54,7 +54,7 @@
 	<target name="assembly" depends="jar">
 		<property name="ikvm.dir" value="/dotnet/ikvm-0.38.0.2" />
 
-		<taskdef name="ikvmc" classname="net.ikvm.ant.IkvmcTask" />
+		<taskdef name="ikvmc" classname="net.ikvm.ant.IkvmcTask" classpathref="master.classpath" />
 
 		<ikvmc target="library" out="${build.dir}/${name}.dll" home="${ikvm.dir}" debug="true">
 			<fileset dir="${build.dir}">
