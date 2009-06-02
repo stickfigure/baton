@@ -13,8 +13,8 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.subethamail.baton.util.SMTPException;
-import org.subethamail.baton.util.SmartClient;
+import org.subethamail.client.SMTPException;
+import org.subethamail.client.SmartClient;
 import org.subethamail.smtp.MessageContext;
 import org.subethamail.smtp.MessageHandler;
 import org.subethamail.smtp.RejectException;

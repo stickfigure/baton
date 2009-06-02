@@ -7,7 +7,7 @@ package org.subethamail.baton.test;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.subethamail.baton.util.SmartClient;
+import org.subethamail.client.SmartClient;
 import org.subethamail.wiser.Wiser;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
