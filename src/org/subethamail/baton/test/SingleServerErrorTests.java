@@ -12,8 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.subethamail.baton.Baton;
 import org.subethamail.baton.Matcher;
-import org.subethamail.baton.util.SMTPException;
-import org.subethamail.baton.util.SmartClient;
+import org.subethamail.client.SMTPException;
+import org.subethamail.client.SmartClient;
 import org.testng.annotations.Test;
 
 /**

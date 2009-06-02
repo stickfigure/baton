@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.subethamail.baton.Baton;
 import org.subethamail.baton.CaseMatcher;
 import org.subethamail.baton.Matcher;
-import org.subethamail.baton.util.SmartClient;
+import org.subethamail.client.SmartClient;
 import org.subethamail.wiser.Wiser;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
